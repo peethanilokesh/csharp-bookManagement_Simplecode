@@ -22,7 +22,7 @@ namespace Csharp_assessment_1
                 this.author = Console.ReadLine();
                 Console.WriteLine("Give book rating");
                 this.rating = Convert.ToDouble(Console.ReadLine());
-                Console.WriteLine("Give book price");
+                Console.WriteLine("Give book price ");
                 this.price = Convert.ToDouble(Console.ReadLine());
                 Console.WriteLine("Book is added Thankyou");
             }
@@ -41,11 +41,16 @@ namespace Csharp_assessment_1
             List<book> bookstore = new List<book>();
             while (true)
             {
-                Console.WriteLine("Type no if u dont want to use bookstore , type anything for yes");
+                Console.WriteLine("Type no if u dont want to use bookstore , type yes to use bookstore");
                 string option = Console.ReadLine();
                 if(option == "no")
                 {
                     break;
+                }
+                else if(option!="yes" && option!="no")
+                {
+                    Console.WriteLine("Type yes or no in small letters");
+                    continue;
                 }
                 Console.WriteLine("Pick a choice (type numbers [1-5])");
                 Console.WriteLine("1 to Add a book\n2 to View all the books in store\n3 to search book by author\n4 to search book by rating \n5 to delete book by id");
@@ -59,7 +64,7 @@ namespace Csharp_assessment_1
                     }
                     else if (choice == 2)
                     {
-                        Console.WriteLine("Books available:");
+                        Console.WriteLine("Books available in store are:"+bookstore.Count);
                         foreach(book book in bookstore)
                         {
                             Console.WriteLine(book.id+"   "+book.title+"   "+book.author+"   "+book.rating+"   "+book.price);
@@ -71,13 +76,17 @@ namespace Csharp_assessment_1
                         Console.WriteLine("Give author name");
                         string authorname = Console.ReadLine();
                         List<book> booksbyauthor = bookstore.FindAll(b => b.author == authorname);
-                        foreach (book book in booksbyauthor)
+                        
+                        if (booksbyauthor.Count != 0)
                         {
-                            Console.WriteLine(book.id + "   " + book.title + "   " + book.author + "   " + book.rating + "   " + book.price);
+                            foreach (book book in booksbyauthor)
+                            {
+                                Console.WriteLine(book.id + "   " + book.title + "   " + book.author + "   " + book.rating + "   " + book.price);
+                            }
                         }
-                        if (booksbyauthor.Count == 0)
+                        else
                         {
-                            Console.WriteLine("Book doesnt exist");
+                            Console.WriteLine("Book doesnt exists");
                         }
                     }
                     else if (choice == 4)
@@ -85,13 +94,17 @@ namespace Csharp_assessment_1
                         Console.WriteLine("Give The book rating");
                         double bookrating = Convert.ToDouble(Console.ReadLine());
                         List<book> booksbyrating = bookstore.FindAll(b => b.rating ==bookrating);
-                        foreach (book book in booksbyrating)
+                     
+                        if (booksbyrating.Count != 0)
                         {
-                            Console.WriteLine(book.id + "   " + book.title + "   " + book.author + "   " + book.rating + "   " + book.price);
+                            foreach (book book in booksbyrating)
+                            {
+                                Console.WriteLine(book.id + "   " + book.title + "   " + book.author + "   " + book.rating + "   " + book.price);
+                            }
                         }
-                        if (booksbyrating.Count == 0)
+                        else
                         {
-                            Console.WriteLine("Book doesnt exist");
+                            Console.WriteLine("Book doesnt exists");
                         }
                     }
                     else if (choice == 5)
@@ -101,6 +114,7 @@ namespace Csharp_assessment_1
                         if(bookstore.RemoveAll(b => b.id == id)==0)
                         {
                             Console.WriteLine("Book doesnt exists");
+                            Console.WriteLine("Here is a display of books");
                         }
                         foreach (book book in bookstore)
                         {
@@ -108,6 +122,10 @@ namespace Csharp_assessment_1
 
                         }
 
+                    }
+                    else
+                    {
+                        Console.WriteLine("Give choice inputs properly--[1-5]numbers");
                     }
 
                 }
